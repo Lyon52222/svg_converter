@@ -1,7 +1,36 @@
 #include <cstdio>
 #include <cstdlib>
 
-void Circle2Path(int cx, int cy, int r, char *path) { path[0] = 'M'; }
+void setA(int rx, int ry, int t, char *path) {
+    path[0] = 'a';
+    path[1] = rx;
+    path[2] = ' ';
+    path[3] = ry;
+    path[4] = ' ';
+    path[5] = '0';
+    path[6] = ' ';
+    path[7] = '1';
+    path[8] = ' ';
+    path[9] = '0';
+    path[10] = ' ';
+    path[11] = 2 * rx;
+    path[12] = ' ';
+    path[13] = '0';
+}
+
+int Circle2Path(int cx, int cy, int rx, int ry, char *path) {
+    path[0] = 'M';
+    path[1] = cx - rx;
+    path[2] = ' ';
+    path[3] = cy;
+
+    setA(rx, ry, 2 * rx, path + 4);
+    setA(rx, ry, -2 * rx, path + 17);
+
+    path[31] = 'z';
+
+    return 31;
+}
 
 int Line2Path(int x1, int y1, int x2, int y2, char *path) {
     path[0] = 'M';
